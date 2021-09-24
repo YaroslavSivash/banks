@@ -29,16 +29,50 @@ func (r *BankRepository) AllBanksDB(c echo.Context) ([]model.Banks, error) {
 		log.Error(err)
 		return nil, err
 	}
-	log.Info(banks)
+	//log.Info(banks)
 	return banks, nil
 }
 
-func (r *BankRepository) CreateBankDB(c echo.Context, bank *model.Banks) (*model.Banks, error) {
-	return nil, nil
+func (r *BankRepository) CreateBankDB(c echo.Context, bank *model.Banks) (int, error) {
+
+
+	//log.Info(bank)
+	_, err := r.db.Model(bank).
+		Insert()
+	if err != nil {
+		log.Info(err)
+		log.Error(err)
+		return 0, err
+	}
+	return bank.Id, nil
 }
 func (r *BankRepository) UpdateBankDB(c echo.Context, bank *model.Banks) (*model.Banks, error) {
-	return nil, nil
+
+	_, err := r.db.Model(bank).
+		WherePK().
+		Update()
+	if err != nil {
+		log.Info(err)
+		log.Error(err)
+		return nil, err
+	}
+	return bank, nil
 }
 func (r *BankRepository) DeleteBankDB(c echo.Context, bank *model.Banks) error {
+
+	_, err := r.db.Model(bank).
+		Where("id = ?", &bank.Id).
+		Delete()
+	if err != nil {
+		log.Info(err)
+		log.Error(err)
+		return err
+	}
 	return nil
+}
+
+func (r *BankRepository) CalculatePaymentsDB (c echo.Context, calculation *model.CalculationBorrowed) (int, error) {
+
+
+	return 0, nil
 }

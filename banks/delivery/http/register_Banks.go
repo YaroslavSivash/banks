@@ -9,8 +9,9 @@ func RegisterHttpEndPointsBanks(e *echo.Echo, uc banks.UseCase) {
 	h := NewHandler(uc)
 
 	e.GET("/", h.AllBanksHandler)
-	e.POST("/createBank", h.CreateBankHandler)
-	e.PUT("/updateBank", h.UpdateBankHandler)
-	e.DELETE("/deleteBank", h.DeleteBankHandler)
+	e.POST("/create-bank", h.CreateBankHandler)
+	e.PUT("/update-bank", h.UpdateBankHandler)
+	e.DELETE("/delete-bank", h.DeleteBankHandler)
+	e.GET("/calculate", h.CalculateHandler)
 }
 

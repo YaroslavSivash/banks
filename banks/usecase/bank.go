@@ -20,7 +20,7 @@ func (u *BankUseCase) AllBanks (c echo.Context) ([]model.Banks, error) {
 	return u.repo.AllBanksDB(c)
 }
 
-func (u *BankUseCase) CreateBank (c echo.Context, banks *model.Banks ) (*model.Banks, error) {
+func (u *BankUseCase) CreateBank (c echo.Context, banks *model.Banks ) (int, error) {
 	return u.repo.CreateBankDB(c, banks)
 }
 
@@ -28,6 +28,9 @@ func (u *BankUseCase) UpdateBank (c echo.Context, banks *model.Banks ) (*model.B
 	return u.repo.UpdateBankDB(c, banks)
 }
 
-func (u *BankUseCase) DeleteBank (c echo.Context, banks *model.Banks )  error {
-	return u.repo.DeleteBankDB(c, banks)
+func (u *BankUseCase) DeleteBank (c echo.Context, bank *model.Banks )  error {
+	return u.repo.DeleteBankDB(c, bank)
+}
+func (u *BankUseCase) CalculatePayments (c echo.Context, calculation *model.CalculationBorrowed) (int, error) {
+	return u.repo.CalculatePaymentsDB(c, calculation)
 }
