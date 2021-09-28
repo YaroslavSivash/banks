@@ -29,13 +29,11 @@ func (r *BankRepository) AllBanksDB(ctx context.Context) ([]model.Banks, error) 
 		log.Error(err)
 		return nil, err
 	}
-	//log.Info(banks)
 	return banks, nil
 }
 
 func (r *BankRepository) CreateBankDB(ctx context.Context, bank *model.Banks) (int, error) {
 
-	//log.Info(bank)
 	_, err := r.db.Model(bank).
 		Insert()
 	if err != nil {
