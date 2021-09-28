@@ -15,5 +15,5 @@
 # vendor/
 
 # For config file
-db/dbconf.yml
-config/config.yml
+dbconf.yml
+config.yml

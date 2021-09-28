@@ -1,7 +1,6 @@
 package model
 
 type Banks struct {
-	tableName          struct{} `pg:"banks,alias:banks"`
 	Id                 int      `json:"id,omitempty" pg:"id,pk"`
 	BankName           string   `json:"bank_name,omitempty" pg:"bank_name"`
 	InterestRate       int      `json:"interest_rate,omitempty" pg:"interest_rate"`
