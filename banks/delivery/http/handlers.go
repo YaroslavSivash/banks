@@ -21,7 +21,7 @@ func NewHandler (useCase banks.UseCase) *Handler {
 
 func (h *Handler) AllBanksHandler(c echo.Context) error  {
 
-	data, err :=h.useCase.AllBanks(c)
+	data, err :=h.useCase.AllBanks(c.Request().Context())
 	if err != nil{
 		log.Error(err)
 		return echo.NewHTTPError(http.StatusInternalServerError, "cannot read json")
@@ -41,7 +41,7 @@ func (h *Handler) CreateBankHandler(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, "cannot read json")
 	}
 
-	id, err := h.useCase.CreateBank(c, bank)
+	id, err := h.useCase.CreateBank(c.Request().Context(), bank)
 	if err != nil {
 		log.Error(err)
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error() )
@@ -58,7 +58,7 @@ func (h *Handler) UpdateBankHandler(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, "cannot read json")
 	}
 
-	updateBank, err := h.useCase.UpdateBank(c, bank)
+	updateBank, err := h.useCase.UpdateBank(c.Request().Context(), bank)
 	if err != nil {
 		log.Error(err)
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error() )
@@ -76,7 +76,7 @@ func (h *Handler) DeleteBankHandler(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, "cannot read json")
 	}
 
-	err := h.useCase.DeleteBank(c, &model.Banks{Id: bank.Id})
+	err := h.useCase.DeleteBank(c.Request().Context(), &model.Banks{Id: bank.Id})
 	if err != nil {
 		log.Error(err)
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error() )
@@ -94,7 +94,7 @@ func (h *Handler) CalculateHandler(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, "cannot read json")
 	}
 
-	month, err := h.useCase.CalculatePayments(c, calculation)
+	month, err := h.useCase.CalculatePayments(c.Request().Context(), calculation)
 	if err != nil {
 		log.Error(err)
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error() )
