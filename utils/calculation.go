@@ -1,11 +1,28 @@
 package utils
 
 import (
-	"fmt"
+	"github.com/labstack/gommon/log"
 	"math"
 )
-func Calculation() {
-	r:= rr/100
 
-	m := p*(r/12)*(math.Pow((1+r/12)), n)/((math.Pow((1+r/12)), n)-1)
+func Calculation(InitialLoan, InterestRate, LoanTerm int) float64 {
+	log.Info(InitialLoan)
+	log.Info(InterestRate)
+	log.Info(LoanTerm)
+
+	ir := float64(InterestRate) / 100.00
+
+	first := math.Pow((1 + ir/12), float64(LoanTerm))
+
+	second := (float64(InitialLoan) * (ir / 12))
+
+	m := second * math.Round(first*100) / 100
+
+	third := math.Pow((1 + ir/12), float64(LoanTerm))
+
+	fourth := third - 1
+
+	calc := m / fourth
+
+	return math.Round(calc*100) / 100
 }

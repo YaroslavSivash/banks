@@ -10,5 +10,5 @@ type BankRepository interface {
 	CreateBankDB (c echo.Context, bank *model.Banks) (int, error)
 	UpdateBankDB (c echo.Context, bank *model.Banks) (*model.Banks, error)
 	DeleteBankDB (c echo.Context, bank *model.Banks) error
-	CalculatePaymentsDB (c echo.Context, calculation *model.CalculationBorrowed) (int, error)
+
 }

@@ -11,7 +11,7 @@ type BankRepository struct {
 	db *pg.DB
 }
 
-func NewBankRepository (db *pg.DB) *BankRepository {
+func NewBankRepository(db *pg.DB) *BankRepository {
 	return &BankRepository{
 		db: db,
 	}
@@ -34,7 +34,6 @@ func (r *BankRepository) AllBanksDB(c echo.Context) ([]model.Banks, error) {
 }
 
 func (r *BankRepository) CreateBankDB(c echo.Context, bank *model.Banks) (int, error) {
-
 
 	//log.Info(bank)
 	_, err := r.db.Model(bank).
@@ -69,10 +68,4 @@ func (r *BankRepository) DeleteBankDB(c echo.Context, bank *model.Banks) error {
 		return err
 	}
 	return nil
-}
-
-func (r *BankRepository) CalculatePaymentsDB (c echo.Context, calculation *model.CalculationBorrowed) (int, error) {
-
-
-	return 0, nil
 }

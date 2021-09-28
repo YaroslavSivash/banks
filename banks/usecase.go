@@ -10,5 +10,5 @@ type UseCase interface {
 	CreateBank (c echo.Context, bank *model.Banks) (int, error)
 	UpdateBank (c echo.Context, bank *model.Banks) (*model.Banks, error)
 	DeleteBank (c echo.Context, bank *model.Banks) error
-	CalculatePayments (c echo.Context, calculation *model.CalculationBorrowed) (int, error)
+	CalculatePayments (c echo.Context, calculation *model.CalculationBorrowed) (float64, error)
 }

@@ -17,5 +17,5 @@ func (b *Banks) TableName() string {
 type CalculationBorrowed struct {
 	InitialLoan int `json:"initial_loan,omitempty"`
 	DownPayment int `json:"down_payment,omitempty"`
-	Bank string `json:"bank,omitempty"`
+	BankName  string `json:"bank_name,omitempty"`
 }

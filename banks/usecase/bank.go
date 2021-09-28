@@ -3,7 +3,9 @@ package usecase
 import (
 	"bank/banks"
 	"bank/model"
+	"bank/utils"
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/gommon/log"
 )
 
 type BankUseCase struct {
@@ -31,6 +33,28 @@ func (u *BankUseCase) UpdateBank (c echo.Context, banks *model.Banks ) (*model.B
 func (u *BankUseCase) DeleteBank (c echo.Context, bank *model.Banks )  error {
 	return u.repo.DeleteBankDB(c, bank)
 }
-func (u *BankUseCase) CalculatePayments (c echo.Context, calculation *model.CalculationBorrowed) (int, error) {
-	return u.repo.CalculatePaymentsDB(c, calculation)
+func (u *BankUseCase) CalculatePayments (c echo.Context, calculation *model.CalculationBorrowed) (float64, error) {
+	var bank []model.Banks
+
+	bank, err := u.repo.AllBanksDB(c)
+	if err != nil {
+		log.Error(err)
+	}
+	log.Info(bank)
+	for _, b := range bank {
+		if b.BankName == calculation.BankName{
+			log.Info(b.BankName)
+			if b.MaximumLoan<calculation.InitialLoan || b.MinimumDownPayment > calculation.DownPayment {
+				log.Error(err)
+				return 0, err
+			}
+			calc := utils.Calculation(calculation.InitialLoan, b.InterestRate, b.LoanTerm)
+			return calc, err
+
+		} else {
+			continue
+		}
+
+	}
+	return 0, nil
 }
