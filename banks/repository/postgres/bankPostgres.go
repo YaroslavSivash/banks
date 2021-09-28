@@ -2,8 +2,8 @@ package postgres
 
 import (
 	"bank/model"
+	"context"
 	"github.com/go-pg/pg/v10"
-	"github.com/labstack/echo/v4"
 	"github.com/labstack/gommon/log"
 )
 
@@ -17,7 +17,7 @@ func NewBankRepository(db *pg.DB) *BankRepository {
 	}
 }
 
-func (r *BankRepository) AllBanksDB(c echo.Context) ([]model.Banks, error) {
+func (r *BankRepository) AllBanksDB(ctx context.Context) ([]model.Banks, error) {
 	var banks []model.Banks
 
 	err := r.db.Model().
@@ -33,7 +33,7 @@ func (r *BankRepository) AllBanksDB(c echo.Context) ([]model.Banks, error) {
 	return banks, nil
 }
 
-func (r *BankRepository) CreateBankDB(c echo.Context, bank *model.Banks) (int, error) {
+func (r *BankRepository) CreateBankDB(ctx context.Context, bank *model.Banks) (int, error) {
 
 	//log.Info(bank)
 	_, err := r.db.Model(bank).
@@ -45,7 +45,7 @@ func (r *BankRepository) CreateBankDB(c echo.Context, bank *model.Banks) (int, e
 	}
 	return bank.Id, nil
 }
-func (r *BankRepository) UpdateBankDB(c echo.Context, bank *model.Banks) (*model.Banks, error) {
+func (r *BankRepository) UpdateBankDB(ctx context.Context, bank *model.Banks) (*model.Banks, error) {
 
 	_, err := r.db.Model(bank).
 		WherePK().
@@ -57,7 +57,7 @@ func (r *BankRepository) UpdateBankDB(c echo.Context, bank *model.Banks) (*model
 	}
 	return bank, nil
 }
-func (r *BankRepository) DeleteBankDB(c echo.Context, bank *model.Banks) error {
+func (r *BankRepository) DeleteBankDB(ctx context.Context, bank *model.Banks) error {
 
 	_, err := r.db.Model(bank).
 		Where("id = ?", &bank.Id).

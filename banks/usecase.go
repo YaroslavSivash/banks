@@ -2,13 +2,13 @@ package banks
 
 import (
 	"bank/model"
-	"github.com/labstack/echo/v4"
+	"context"
 )
 
 type UseCase interface {
-	AllBanks (c echo.Context) ([]model.Banks, error)
-	CreateBank (c echo.Context, bank *model.Banks) (int, error)
-	UpdateBank (c echo.Context, bank *model.Banks) (*model.Banks, error)
-	DeleteBank (c echo.Context, bank *model.Banks) error
-	CalculatePayments (c echo.Context, calculation *model.CalculationBorrowed) (float64, error)
+	AllBanks (ctx context.Context) ([]model.Banks, error)
+	CreateBank (ctx context.Context, bank *model.Banks) (int, error)
+	UpdateBank (ctx context.Context, bank *model.Banks) (*model.Banks, error)
+	DeleteBank (ctx context.Context, bank *model.Banks) error
+	CalculatePayments (ctx context.Context, calculation *model.CalculationBorrowed) (float64, error)
 }

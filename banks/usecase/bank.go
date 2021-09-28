@@ -4,7 +4,7 @@ import (
 	"bank/banks"
 	"bank/model"
 	"bank/utils"
-	"github.com/labstack/echo/v4"
+	"context"
 	"github.com/labstack/gommon/log"
 )
 
@@ -18,25 +18,25 @@ func NewBankUseCase (repo banks.BankRepository) *BankUseCase {
 	}
 }
 
-func (u *BankUseCase) AllBanks (c echo.Context) ([]model.Banks, error) {
-	return u.repo.AllBanksDB(c)
+func (u *BankUseCase) AllBanks (ctx context.Context) ([]model.Banks, error) {
+	return u.repo.AllBanksDB(ctx)
 }
 
-func (u *BankUseCase) CreateBank (c echo.Context, banks *model.Banks ) (int, error) {
-	return u.repo.CreateBankDB(c, banks)
+func (u *BankUseCase) CreateBank (ctx context.Context, banks *model.Banks ) (int, error) {
+	return u.repo.CreateBankDB(ctx, banks)
 }
 
-func (u *BankUseCase) UpdateBank (c echo.Context, banks *model.Banks ) (*model.Banks, error) {
-	return u.repo.UpdateBankDB(c, banks)
+func (u *BankUseCase) UpdateBank (ctx context.Context, banks *model.Banks ) (*model.Banks, error) {
+	return u.repo.UpdateBankDB(ctx, banks)
 }
 
-func (u *BankUseCase) DeleteBank (c echo.Context, bank *model.Banks )  error {
-	return u.repo.DeleteBankDB(c, bank)
+func (u *BankUseCase) DeleteBank (ctx context.Context, bank *model.Banks )  error {
+	return u.repo.DeleteBankDB(ctx, bank)
 }
-func (u *BankUseCase) CalculatePayments (c echo.Context, calculation *model.CalculationBorrowed) (float64, error) {
+func (u *BankUseCase) CalculatePayments (ctx context.Context, calculation *model.CalculationBorrowed) (float64, error) {
 	var bank []model.Banks
 
-	bank, err := u.repo.AllBanksDB(c)
+	bank, err := u.repo.AllBanksDB(ctx)
 	if err != nil {
 		log.Error(err)
 	}

@@ -24,7 +24,6 @@ func (h *Handler) AllBanksHandler(c echo.Context) error  {
 	data, err :=h.useCase.AllBanks(c)
 	if err != nil{
 		log.Error(err)
-		//log.Info("123")
 		return echo.NewHTTPError(http.StatusInternalServerError, "cannot read json")
 	}
 
@@ -34,14 +33,13 @@ func (h *Handler) AllBanksHandler(c echo.Context) error  {
 }
 
 func (h *Handler) CreateBankHandler(c echo.Context) error {
+
 	bank := &model.Banks{}
-	//log.Info(" до bind:", bank)
 	if err:=c.Bind(bank)
 	err != nil {
 		log.Error(err)
 		return echo.NewHTTPError(http.StatusBadRequest, "cannot read json")
 	}
-	//log.Info(bank)
 
 	id, err := h.useCase.CreateBank(c, bank)
 	if err != nil {
@@ -52,8 +50,8 @@ func (h *Handler) CreateBankHandler(c echo.Context) error {
 }
 
 func (h *Handler) UpdateBankHandler(c echo.Context) error {
-	bank := &model.Banks{}
 
+	bank := &model.Banks{}
 	if err:=c.Bind(bank)
 		err != nil {
 		log.Error(err)
@@ -72,7 +70,6 @@ func (h *Handler) UpdateBankHandler(c echo.Context) error {
 func (h *Handler) DeleteBankHandler(c echo.Context) error {
 
 	bank := &model.Banks{}
-
 	if err:=c.Bind(bank)
 		err != nil {
 		log.Error(err)
@@ -89,8 +86,8 @@ func (h *Handler) DeleteBankHandler(c echo.Context) error {
 }
 
 func (h *Handler) CalculateHandler(c echo.Context) error {
-	calculation := &model.CalculationBorrowed{}
 
+	calculation := &model.CalculationBorrowed{}
 	if err:=c.Bind(calculation)
 		err != nil {
 		log.Error(err)

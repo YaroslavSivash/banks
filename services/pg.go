@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"github.com/go-pg/pg/v10"
 	"github.com/spf13/viper"
-	"os"
 )
 
 
@@ -14,7 +13,7 @@ func NewDbConnect() (db *pg.DB) {
 		Host:     viper.GetString("host"),
 		Port:     viper.GetString("port_db"),
 		Username: viper.GetString("username"),
-		Password: os.Getenv("DB_PASSWORD"),
+		Password: viper.GetString("db_password"),
 		DBName:   viper.GetString("db_name"),
 		Timezone: viper.GetString("timezone"),
 	}
