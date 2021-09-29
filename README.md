@@ -5,11 +5,11 @@
 sudo apt-get update
 sudo apt-get install postgresql
 ```
-## Check installation:
+##Check installation:
 ```
 sudo -u postgres psql
 ```
-## Create app database:
+##Create app database:
 ```
 CREATE DATABASE telegram_bot;
 ```
@@ -44,7 +44,7 @@ ALTER USER admin CREATEDB;
 \q
 ```
 
-customization config.yml:
+## Customization config.yml:
 ```
 port: "9001"
 
@@ -55,7 +55,7 @@ db_name: ""
 username: ""
 timezone: "Europe/Kiev"
 ```
-customization dbconf.yml:
+## Customization dbconf.yml:
 ```
 development:
     driver: postgres
@@ -70,7 +70,9 @@ Inside the project root directory migrate the database:
 ```
 goose up
 ```
-To delete tables, repeat below command for each table:
+##To delete tables, repeat below command for each table:
 ```
 goose down
 ```
+
+And you must install Postman, to use request with json
