@@ -12,17 +12,16 @@ type Handler struct {
 	useCase banks.UseCase
 }
 
-func NewHandler (useCase banks.UseCase) *Handler {
+func NewHandler(useCase banks.UseCase) *Handler {
 	return &Handler{
 		useCase: useCase,
 	}
 }
 
+func (h *Handler) AllBanksHandler(c echo.Context) error {
 
-func (h *Handler) AllBanksHandler(c echo.Context) error  {
-
-	data, err :=h.useCase.AllBanks(c.Request().Context())
-	if err != nil{
+	data, err := h.useCase.AllBanks(c.Request().Context())
+	if err != nil {
 		log.Error(err)
 		return echo.NewHTTPError(http.StatusInternalServerError, "cannot read json")
 	}
@@ -35,8 +34,7 @@ func (h *Handler) AllBanksHandler(c echo.Context) error  {
 func (h *Handler) CreateBankHandler(c echo.Context) error {
 
 	bank := &model.Banks{}
-	if err:=c.Bind(bank)
-	err != nil {
+	if err := c.Bind(bank); err != nil {
 		log.Error(err)
 		return echo.NewHTTPError(http.StatusBadRequest, "cannot read json")
 	}
@@ -44,7 +42,7 @@ func (h *Handler) CreateBankHandler(c echo.Context) error {
 	id, err := h.useCase.CreateBank(c.Request().Context(), bank)
 	if err != nil {
 		log.Error(err)
-		return echo.NewHTTPError(http.StatusBadRequest, err.Error() )
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 	return c.JSON(http.StatusOK, id)
 }
@@ -52,8 +50,7 @@ func (h *Handler) CreateBankHandler(c echo.Context) error {
 func (h *Handler) UpdateBankHandler(c echo.Context) error {
 
 	bank := &model.Banks{}
-	if err:=c.Bind(bank)
-		err != nil {
+	if err := c.Bind(bank); err != nil {
 		log.Error(err)
 		return echo.NewHTTPError(http.StatusBadRequest, "cannot read json")
 	}
@@ -61,17 +58,18 @@ func (h *Handler) UpdateBankHandler(c echo.Context) error {
 	updateBank, err := h.useCase.UpdateBank(c.Request().Context(), bank)
 	if err != nil {
 		log.Error(err)
-		return echo.NewHTTPError(http.StatusBadRequest, err.Error() )
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, updateBank)
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"new bank": updateBank,
+	})
 }
 
 func (h *Handler) DeleteBankHandler(c echo.Context) error {
 
 	bank := &model.Banks{}
-	if err:=c.Bind(bank)
-		err != nil {
+	if err := c.Bind(bank); err != nil {
 		log.Error(err)
 		return echo.NewHTTPError(http.StatusBadRequest, "cannot read json")
 	}
@@ -79,7 +77,7 @@ func (h *Handler) DeleteBankHandler(c echo.Context) error {
 	err := h.useCase.DeleteBank(c.Request().Context(), &model.Banks{Id: bank.Id})
 	if err != nil {
 		log.Error(err)
-		return echo.NewHTTPError(http.StatusBadRequest, err.Error() )
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 
 	return c.JSON(http.StatusOK, "Bank successful delete")
@@ -88,8 +86,7 @@ func (h *Handler) DeleteBankHandler(c echo.Context) error {
 func (h *Handler) CalculateHandler(c echo.Context) error {
 
 	calculation := &model.CalculationBorrowed{}
-	if err:=c.Bind(calculation)
-		err != nil {
+	if err := c.Bind(calculation); err != nil {
 		log.Error(err)
 		return echo.NewHTTPError(http.StatusBadRequest, "cannot read json")
 	}
@@ -97,9 +94,10 @@ func (h *Handler) CalculateHandler(c echo.Context) error {
 	month, err := h.useCase.CalculatePayments(c.Request().Context(), calculation)
 	if err != nil {
 		log.Error(err)
-		return echo.NewHTTPError(http.StatusBadRequest, err.Error() )
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, month)
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"Payment": month,
+	})
 }
-
