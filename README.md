@@ -1,15 +1,15 @@
 # banks
 
-#1: Install PostgreSQL:
+# 1: Install PostgreSQL:
 ```
 sudo apt-get update
 sudo apt-get install postgresql
 ```
-##Check installation:
+## Check installation:
 ```
 sudo -u postgres psql
 ```
-##Create app database:
+## Create app database:
 ```
 CREATE DATABASE telegram_bot;
 ```
@@ -44,7 +44,7 @@ ALTER USER admin CREATEDB;
 \q
 ```
 
-##customization config.yml:
+customization config.yml:
 ```
 port: "9001"
 
@@ -55,7 +55,7 @@ db_name: ""
 username: ""
 timezone: "Europe/Kiev"
 ```
-##customization dbconf.yml:
+customization dbconf.yml:
 ```
 development:
     driver: postgres
@@ -66,11 +66,11 @@ https://bitbucket.org/liamstask/goose/src/master/
 ```
 go get bitbucket.org/liamstask/goose/cmd/goose
 ```
-##Inside the project root directory migrate the database:
+Inside the project root directory migrate the database:
 ```
 goose up
 ```
-##To delete tables, repeat below command for each table:
+To delete tables, repeat below command for each table:
 ```
 goose down
 ```
