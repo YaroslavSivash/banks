@@ -7,7 +7,6 @@ import (
 	"github.com/spf13/viper"
 )
 
-
 func NewDbConnect() (db *pg.DB) {
 	dbconfig := Config{
 		Host:     viper.GetString("host"),
@@ -25,6 +24,17 @@ func NewDbConnect() (db *pg.DB) {
 	return pgDB
 }
 
+type dbLogger struct{}
+
+func (d dbLogger) BeforeQuery(c context.Context, q *pg.QueryEvent) (context.Context, error) {
+	return c, nil
+}
+
+func (d dbLogger) AfterQuery(c context.Context, q *pg.QueryEvent) error {
+	req, _ := q.FormattedQuery()
+	fmt.Println(string(req))
+	return nil
+}
 
 // Dial creates new database connection to postgres
 func dial(cfg Config) (*pg.DB, error) {
@@ -40,7 +50,7 @@ func dial(cfg Config) (*pg.DB, error) {
 		},
 	})
 
-	//dbpg.AddQueryHook(dbLogger{})
+	dbpg.AddQueryHook(dbLogger{})
 	err := dbpg.Ping(context.Background())
 	if err != nil {
 		return nil, err
@@ -57,4 +67,3 @@ type Config struct {
 	DBName   string
 	Timezone string
 }
-

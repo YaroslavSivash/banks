@@ -101,3 +101,17 @@ func (h *Handler) CalculateHandler(c echo.Context) error {
 		"Payment": month,
 	})
 }
+
+// HealthCheck godoc
+// @Summary Показать статус сервера.
+// @Description получить статус сервера.
+// @Tags root
+// @Accept * / *
+// @Produce json
+// @Success 200 {object} map [string] interface {}
+// @Router / [get]
+func HealthCheck(c echo.Context) error {
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"data": "Сервер запущен и работает",
+	})
+}

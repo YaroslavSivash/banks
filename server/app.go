@@ -7,18 +7,19 @@ import (
 	"bank/banks/usecase"
 	"bank/services"
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 	"github.com/spf13/viper"
 )
 
 type App struct {
 	httpserver *echo.Echo
-	bankUC banks.UseCase
+	bankUC     banks.UseCase
 }
 
-func NewApp () *App{
+func NewApp() *App {
 	connectToPostgres := services.NewDbConnect()
 
-	repoBanks :=postgres.NewBankRepository(connectToPostgres)
+	repoBanks := postgres.NewBankRepository(connectToPostgres)
 	return &App{
 		bankUC: usecase.NewBankUseCase(repoBanks),
 	}
@@ -26,8 +27,13 @@ func NewApp () *App{
 
 func (a *App) Run(port string) error {
 	e := echo.New()
+	// Промежуточное ПО
+	e.Use(middleware.Logger())
+	e.Use(middleware.Recover())
+	e.Use(middleware.CORS())
+
 	http.RegisterHttpEndPointsBanks(e, a.bankUC)
-	e.Logger.Fatal(e.Start(":"+viper.GetString("port")))
+	e.Logger.Fatal(e.Start(":" + viper.GetString("port")))
 
 	return nil
 }
