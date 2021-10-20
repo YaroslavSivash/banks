@@ -15,6 +15,6 @@ func RegisterHttpEndPointsBanks(e *echo.Echo, uc banks.UseCase) {
 	e.DELETE("/delete-bank", h.DeleteBankHandler)
 	e.GET("/calculate", h.CalculateHandler)
 	// Маршруты
-	e.GET("/", HealthCheck)
+	e.GET("/", h.HealthCheck)
 	e.GET("/swagger/*", echoSwagger.WrapHandler)
 }

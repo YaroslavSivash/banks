@@ -2,6 +2,7 @@ package http
 
 import (
 	"bank/banks"
+	_ "bank/cmd/api/docs"
 	"bank/model"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/gommon/log"
@@ -110,7 +111,7 @@ func (h *Handler) CalculateHandler(c echo.Context) error {
 // @Produce json
 // @Success 200 {object} map [string] interface {}
 // @Router / [get]
-func HealthCheck(c echo.Context) error {
+func (h *Handler) HealthCheck(c echo.Context) error {
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"data": "Сервер запущен и работает",
 	})

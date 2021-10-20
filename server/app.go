@@ -25,6 +25,21 @@ func NewApp() *App {
 	}
 }
 
+// @title Echo Swagger Example API
+// @version 1.0
+// @ описание Это примерный сервер.
+// @termsOfService http://swagger.io/terms/
+
+// @ contact.name Поддержка API
+// @ contact.url http://www.swagger.io/support
+// @ contact.email support@swagger.io
+
+// @ license.name Apache 2.0
+// @ license.url http://www.apache.org/licenses/LICENSE-2.0.html
+
+// @host localhost: 9001
+// @BasePath /
+// @schemes http
 func (a *App) Run(port string) error {
 	e := echo.New()
 	// Промежуточное ПО
