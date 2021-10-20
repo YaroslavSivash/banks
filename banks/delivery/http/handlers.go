@@ -2,7 +2,7 @@ package http
 
 import (
 	"bank/banks"
-	_ "bank/cmd/api/docs"
+	_ "bank/docs"
 	"bank/model"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/gommon/log"

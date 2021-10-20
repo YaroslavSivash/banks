@@ -2,6 +2,7 @@ package http
 
 import (
 	"bank/banks"
+	_ "bank/docs"
 	"github.com/labstack/echo/v4"
 	echoSwagger "github.com/swaggo/echo-swagger"
 )
@@ -14,7 +15,7 @@ func RegisterHttpEndPointsBanks(e *echo.Echo, uc banks.UseCase) {
 	e.PUT("/update-bank", h.UpdateBankHandler)
 	e.DELETE("/delete-bank", h.DeleteBankHandler)
 	e.GET("/calculate", h.CalculateHandler)
-	// Маршруты
+	// Routes
 	e.GET("/", h.HealthCheck)
 	e.GET("/swagger/*", echoSwagger.WrapHandler)
 }

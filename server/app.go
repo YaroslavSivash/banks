@@ -5,6 +5,7 @@ import (
 	"bank/banks/delivery/http"
 	"bank/banks/repository/postgres"
 	"bank/banks/usecase"
+	_ "bank/docs"
 	"bank/services"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -42,7 +43,7 @@ func NewApp() *App {
 // @schemes http
 func (a *App) Run(port string) error {
 	e := echo.New()
-	// Промежуточное ПО
+
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 	e.Use(middleware.CORS())

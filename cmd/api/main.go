@@ -1,7 +1,6 @@
 package main
 
 import (
-	_ "bank/cmd/api/docs"
 	"bank/config"
 	"bank/server"
 	"github.com/spf13/viper"
