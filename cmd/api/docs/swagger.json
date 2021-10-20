@@ -1,15 +1,7 @@
 {
-    "schemes": [
-        "http"
-    ],
     "swagger": "2.0",
     "info": {
-        "title": "Echo Swagger Example API",
-        "termsOfService": "http://swagger.io/terms/",
-        "contact": {},
-        "version": "1.0"
+        "contact": {}
     },
-    "host": "localhost: 3000",
-    "basePath": "/",
     "paths": {}
 }
