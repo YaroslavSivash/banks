@@ -1,7 +1,95 @@
 {
+    "schemes": [
+        "http"
+    ],
     "swagger": "2.0",
     "info": {
-        "contact": {}
+        "title": "Echo Swagger Banks API",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {},
+        "version": "2.0"
     },
-    "paths": {}
+    "host": "localhost: 9001",
+    "basePath": "/",
+    "paths": {
+        "/accounts/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "get string by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Show a account",
+                "operationId": "get-string-by-int",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Account ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.Banks"
+                        },
+                        "headers": {
+                            "Token": {
+                                "type": "string",
+                                "description": "qwerty"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "model.Banks": {
+            "type": "object",
+            "properties": {
+                "bank_name": {
+                    "type": "string",
+                    "example": "Privat"
+                },
+                "id": {
+                    "type": "integer",
+                    "example": 2
+                },
+                "interest_rate": {
+                    "type": "integer",
+                    "example": 35
+                },
+                "loan_term": {
+                    "type": "integer",
+                    "example": 20
+                },
+                "maximum_loan": {
+                    "type": "integer",
+                    "example": 10000
+                },
+                "minimum_down_payment": {
+                    "type": "integer",
+                    "example": 1000
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "ApiKeyAuth": {
+            "type": "apiKey",
+            "name": "X-Access-token",
+            "in": "header"
+        }
+    }
 }

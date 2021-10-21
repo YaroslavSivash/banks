@@ -10,7 +10,7 @@ import (
 func RegisterHttpEndPointsBanks(e *echo.Echo, uc banks.UseCase) {
 	h := NewHandler(uc)
 
-	e.GET("/", h.AllBanksHandler)
+	//e.GET("/", h.AllBanksHandler)
 	e.POST("/create-bank", h.CreateBankHandler)
 	e.PUT("/update-bank", h.UpdateBankHandler)
 	e.DELETE("/delete-bank", h.DeleteBankHandler)

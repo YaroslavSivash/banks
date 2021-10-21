@@ -1,4 +1,64 @@
+basePath: /
+definitions:
+  model.Banks:
+    properties:
+      bank_name:
+        example: Privat
+        type: string
+      id:
+        example: 2
+        type: integer
+      interest_rate:
+        example: 35
+        type: integer
+      loan_term:
+        example: 20
+        type: integer
+      maximum_loan:
+        example: 10000
+        type: integer
+      minimum_down_payment:
+        example: 1000
+        type: integer
+    type: object
+host: 'localhost: 9001'
 info:
   contact: {}
-paths: {}
+  termsOfService: http://swagger.io/terms/
+  title: Echo Swagger Banks API
+  version: "2.0"
+paths:
+  /accounts/{id}:
+    get:
+      consumes:
+      - application/json
+      description: get string by ID
+      operationId: get-string-by-int
+      parameters:
+      - description: Account ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          headers:
+            Token:
+              description: qwerty
+              type: string
+          schema:
+            $ref: '#/definitions/model.Banks'
+      security:
+      - ApiKeyAuth: []
+      summary: Show a account
+schemes:
+- http
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: X-Access-token
+    type: apiKey
 swagger: "2.0"

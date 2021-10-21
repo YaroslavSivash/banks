@@ -19,6 +19,23 @@ func NewHandler(useCase banks.UseCase) *Handler {
 	}
 }
 
+// ShowAccount godoc
+// @Security ApiKeyAuth
+// @Summary Show a account
+// @Description get string by ID
+// @ID get-string-by-int
+// @Accept  json
+// @Produce  json
+// @Param id path int true "Account ID"
+// @Success 200 {object} model.Banks
+// @Header 200 {string} Token "qwerty"
+// @Router /accounts/{id} [get]
+func (h *Handler) HealthCheck(c echo.Context) error {
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"data": "Сервер запущен и работает",
+	})
+}
+
 func (h *Handler) AllBanksHandler(c echo.Context) error {
 
 	data, err := h.useCase.AllBanks(c.Request().Context())
@@ -100,19 +117,5 @@ func (h *Handler) CalculateHandler(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"Payment": month,
-	})
-}
-
-// HealthCheck godoc
-// @Summary Показать статус сервера.
-// @Description получить статус сервера.
-// @Tags root
-// @Accept * / *
-// @Produce json
-// @Success 200 {object} map [string] interface {}
-// @Router / [get]
-func (h *Handler) HealthCheck(c echo.Context) error {
-	return c.JSON(http.StatusOK, map[string]interface{}{
-		"data": "Сервер запущен и работает",
 	})
 }

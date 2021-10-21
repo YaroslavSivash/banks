@@ -17,12 +17,93 @@ var doc = `{
     "info": {
         "description": "{{escape .Description}}",
         "title": "{{.Title}}",
+        "termsOfService": "http://swagger.io/terms/",
         "contact": {},
         "version": "{{.Version}}"
     },
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
-    "paths": {}
+    "paths": {
+        "/accounts/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "get string by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Show a account",
+                "operationId": "get-string-by-int",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Account ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.Banks"
+                        },
+                        "headers": {
+                            "Token": {
+                                "type": "string",
+                                "description": "qwerty"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "model.Banks": {
+            "type": "object",
+            "properties": {
+                "bank_name": {
+                    "type": "string",
+                    "example": "Privat"
+                },
+                "id": {
+                    "type": "integer",
+                    "example": 2
+                },
+                "interest_rate": {
+                    "type": "integer",
+                    "example": 35
+                },
+                "loan_term": {
+                    "type": "integer",
+                    "example": 20
+                },
+                "maximum_loan": {
+                    "type": "integer",
+                    "example": 10000
+                },
+                "minimum_down_payment": {
+                    "type": "integer",
+                    "example": 1000
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "ApiKeyAuth": {
+            "type": "apiKey",
+            "name": "X-Access-token",
+            "in": "header"
+        }
+    }
 }`
 
 type swaggerInfo struct {
@@ -36,11 +117,11 @@ type swaggerInfo struct {
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = swaggerInfo{
-	Version:     "",
-	Host:        "",
-	BasePath:    "",
-	Schemes:     []string{},
-	Title:       "",
+	Version:     "2.0",
+	Host:        "localhost: 9001",
+	BasePath:    "/",
+	Schemes:     []string{"http"},
+	Title:       "Echo Swagger Banks API",
 	Description: "",
 }
 
